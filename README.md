@@ -1,1 +1,3 @@
-Here is my coding portfolio website
+This is my website/portfolio
+
+Find it on rushurov.me
