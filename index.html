@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -216,9 +216,40 @@
 
     <footer class="max-w-5xl mx-auto px-6 py-12 text-xs text-[#86868b] border-t border-[#424245]/30 mt-12">
         <div class="flex flex-col sm:flex-row justify-between items-center pt-4 gap-2">
-            <p>© 2026 • Ruslan Ushurov</p>
+            <p> 2026 • Ruslan Ushurov</p>
         </div>
     </footer>
+    <script>
+        document.querySelector('a[href="#projects"]').addEventListener('click', function(e) {
+            e.preventDefault(); // quit the choppiness
+            
+            const target = document.querySelector('#projects');
+            const targetPosition = target.getBoundingClientRect().top + window.pageYOffset;
+            const startPosition = window.pageYOffset;
+            const distance = targetPosition - startPosition;
+            let startTime = null;
 
+            const duration = 1000; 
+
+            function easeInOutCubic(t, b, c, d) {
+                t /= d / 2;
+                if (t < 1) return c / 2 * t * t * t + b;
+                t -= 2;
+                return c / 2 * (t * t * t + 2) + b;
+            }
+
+            function animation(currentTime) {
+                if (startTime === null) startTime = currentTime;
+                const timeElapsed = currentTime - startTime;
+                const run = easeInOutCubic(timeElapsed, startPosition, distance, duration);
+                window.scrollTo(0, run);
+                if (timeElapsed < duration) requestAnimationFrame(animation);
+            }
+
+            requestAnimationFrame(animation);
+        });
+    </script>
+</body>
+</html>
 </body>
 </html>
